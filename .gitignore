@@ -1,0 +1,43 @@
+# Downloaded firmware (users download their own)
+meshtastic-firmware/*.zip
+meshtastic-firmware/*.bin
+meshtastic-firmware/*.uf2
+meshtastic-firmware/_release_info.json
+meshcore-firmware/*.zip
+meshcore-firmware/*.bin
+meshcore-firmware/*.uf2
+meshcore-firmware/_release_info.json
+
+# Installed tools (users install their own)
+tools/esptool/
+tools/nrfutil/
+tools/uf2conv/
+tools/setup-paths.bat
+
+# Keep the directories with .gitkeep
+!meshtastic-firmware/.gitkeep
+!meshcore-firmware/.gitkeep
+!tools/.gitkeep
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Temp
+*.tmp
+*.log
