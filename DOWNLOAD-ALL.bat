@@ -65,13 +65,13 @@ REM ============================================================
 echo [2/5] Downloading MeshCore firmware (latest release)...
 echo.
 
-REM Try rocketgod's MeshCore firmware repo
-python "%TOOLKIT_DIR%download_github_release.py" rocketgod-git/meshcore ^
+REM Try official MeshCore firmware repo
+python "%TOOLKIT_DIR%download_github_release.py" meshcore-dev/meshcore ^
     --output "%TOOLKIT_DIR%meshcore-firmware" 2>nul
 if %ERRORLEVEL% neq 0 (
-    echo NOTE: Could not find rocketgod-git/meshcore.
+    echo NOTE: Could not find meshcore-dev/meshcore.
     echo Trying alternative MeshCore repos...
-    python "%TOOLKIT_DIR%download_github_release.py" meshcore/firmware ^
+    python "%TOOLKIT_DIR%download_github_release.py" aardzhanov/meshcore-firmware ^
         --output "%TOOLKIT_DIR%meshcore-firmware" 2>nul
 )
 echo.
@@ -139,9 +139,13 @@ echo.
 
 echo --- Meshtastic Firmware ---
 if exist "%TOOLKIT_DIR%meshtastic-firmware" (
-    dir /b "%TOOLKIT_DIR%meshtastic-firmware\*.zip" 2>nul | find /c /v "" > "%TEMP%\count.tmp"
+    dir /b "%TOOLKIT_DIR%meshtastic-firmware\*.zip" 2>nul | findstr /v ".gitkeep" | find /c /v "" > "%TEMP%\count.tmp"
     set /p MCOUNT=<"%TEMP%\count.tmp"
-    echo   Found !MCOUNT! firmware files
+    if "%MCOUNT%" == "0" (
+		echo	WARNING: No firmware downloaded
+	) else (
+		echo   Found !MCOUNT! firmware files
+	)
 ) else (
     echo   WARNING: No firmware downloaded
 )
@@ -149,9 +153,13 @@ if exist "%TOOLKIT_DIR%meshtastic-firmware" (
 echo.
 echo --- MeshCore Firmware ---
 if exist "%TOOLKIT_DIR%meshcore-firmware" (
-    dir /b "%TOOLKIT_DIR%meshcore-firmware\*" 2>nul | find /c /v "" > "%TEMP%\count.tmp"
+    dir /b "%TOOLKIT_DIR%meshcore-firmware\*" 2>nul | findstr /v ".gitkeep" | find /c /v "" > "%TEMP%\count.tmp"
     set /p CCOUNT=<"%TEMP%\count.tmp"
-    echo   Found !CCOUNT! firmware files
+    if "%CCOUNT%" == "0" (
+		echo	WARNING: No firmware downloaded
+	) else (
+		echo   Found !CCOUNT! firmware files
+	)
 ) else (
     echo   WARNING: No firmware downloaded
 )
